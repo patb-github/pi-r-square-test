@@ -16,12 +16,43 @@ function customSort(nums) {
         else odds.push(x);
     }
 
-    evens.sort((a, b) => a - b);
-    odds.sort((a, b) => a - b);
+    // evens.sort((a, b) => a - b);
+    // odds.sort((a, b) => a - b);
+    mergeSort(evens);
+    mergeSort(odds);
 
     const C = odds.length;
     for (let i = 0; i < C; i++) nums[i] = odds[i];
     for (let i = C; i < nums.length; i++) nums[i] = evens[i - C];
 
     return nums;
+}
+
+//===================================
+function merge(arr, lo, hi, mid) {
+    const aux = [];
+
+    let x = lo;
+    let y = mid + 1;
+    for (let i = lo; i <= hi; i++) {
+        if (x > mid) aux.push(arr[y++]);
+        else if (y > hi) aux.push(arr[x++]);
+        else if (arr[x] <= arr[y]) aux.push(arr[x++]);
+        else aux.push(arr[y++]);
+    }
+
+    for (let i = lo; i <= hi; i++) arr[i] = aux[i - lo];
+}
+
+function mergeSortAux(arr, lo, hi) {
+    if (lo >= hi) return;
+
+    const mid = Math.floor((lo + hi) / 2);
+    mergeSortAux(arr, lo, mid);
+    mergeSortAux(arr, mid + 1, hi);
+    merge(arr, lo, hi, mid);
+}
+
+function mergeSort(arr) {
+    mergeSortAux(arr, 0, arr.length - 1);
 }
