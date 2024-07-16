@@ -10,8 +10,9 @@
 // Input: [12, 17, 14, 11, 19, 8], Target: 20 Output: true
 
 // Note: I will assume that the two integers should not belong to the same array index.
+// e.g., sumOfTwo([1], 2) should return false
 function sumOfTwo(integers, target) {
-    // Use a hashmap to store value-index pairs in the array for quick access
+    // Use a map to store value-index pairs of the array
     const map = new Map();
 
     for (let i = 0; i < integers.length; i++) {
@@ -19,8 +20,10 @@ function sumOfTwo(integers, target) {
     }
 
     for (let i = 0; i < integers.length; i++) {
-        const t = map.has(target - integers[i]);
-        if (t && t !== integers[i]) return true;
+        // get index of integer[i]'s complement
+        const t = map.get(target - integers[i]);
+        // check that the index is not undefined and is different from i
+        if (t && t !== i) return true;
     }
 
     return false;
