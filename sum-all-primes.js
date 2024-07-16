@@ -8,6 +8,9 @@
 // Input: 59, Output: 440 (since the prime numbers up to 10 are 2, 3, 5, 7..... To 59).
 
 function sumAllPrimes(n) {
+    if (n < 0) return 0;
+    n = Math.floor(n);
+
     const isPrime = new Array(n + 1);
     isPrime.fill(true);
 
